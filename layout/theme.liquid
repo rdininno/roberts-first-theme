@@ -1,8 +1,16 @@
-<html>
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
+    ...
     {{ content_for_header }}
-  </head>
 
+    <style>
+      body {
+        background-color: {{ settings.bg }};
+        color: {{ settings.text_color }};
+      }
+    </style>
+  </head>
   <body>
     {% render 'header' %}
     {{ content_for_layout }}
