@@ -1,10 +1,32 @@
 [
   {
+    "name": "theme_info",
+    "theme_name": "Robert First Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Robert Di Ninno",
+    "theme_support_email": "robert@robert.com",
+    "theme_documentation_url": "https://www.robertdininno.com/"
+  },
+  {
+    "name": "Page settings",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "default": 1200,
+        "min": 800,
+        "max": 1600,
+        "step": 50
+      }
+    ]
+  },
+  {
     "name": "Colors",
     "settings": [
       {
         "type": "color",
-        "id": "bg",
+        "id": "background_color",
         "label": "Background color",
         "default": "#ffffff"
       },
@@ -12,18 +34,19 @@
         "type": "color",
         "id": "text_color",
         "label": "Text color",
-        "default": "#000000"
-      }
-    ]
-  },
-  {
-    "name": "Settings",
-    "settings": [
+        "default": "#111111"
+      },
       {
-        "type": "checkbox",
-        "id": "show_search",
-        "label": "Show search form",
-        "default": true
+        "type": "color",
+        "id": "medium_text_color",
+        "label": "Medium text color",
+        "default": "#5e5e5e"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border color",
+        "default": "#DDDDDD"
       }
     ]
   }

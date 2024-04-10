@@ -1,55 +1,95 @@
-<header class="header">
-  <h1>{{ shop.name }}</h1>
+<div class="width">
+  <div class="header-flex">
+    <a href="/" class="header-logo">
+      <img src="{{  section.settings.logo | image_url }}" alt="{{ shop.name }}">
+    </a>
 
-  <ul>
-    {% for link in linklists['main-menu'].links -%}
-      <li>{{ link.title | link_to: link.url }}</li>
-    {%- endfor %}
-  </ul>
+    <button class="header-hamburger">
+      <span class="header-hamburger-bar"></span>
+      <span class="header-hamburger-bar"></span>
+      <span class="header-hamburger-bar"></span>
+    </button>
 
-  {% if section.settings.show_search %}
-    <form action="{{ routes.search_url }}">
-      <input
-        type="text"
-        placeholder="Search"
-        name="q"
-        value="{{ search.terms | escape }}"
-      >
-      <input type="submit" value="Search">
-    </form>
-  {% endif %}
-</header>
+    <ul class="header-nav">
+      {% for link in section.settings.navigation.links %}
+        <li class="header-nav-item">
+          <a class="header-nav-a" href="{{ link.url }}">
+            {{ link.title }}
+          </a>
+
+          {% if link.links != blank %}
+            <ul class="header-sub">
+              {% for child in link.links %}
+                <li class="header-sub-item">
+                  <a href="{{ child.url }}" class="header-sub-a">
+                    {{ child.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<div class="header-nav-overlay"></div>
 
 <style>
   .header {
-    background-color: {{ section.settings.bg }}
+    padding: {{ section.settings.padding }}px 0px;
+  }
+
+  .header-logo {
+    max-width: {{ section.settings.logo_width }}px
   }
 </style>
 
-{% stylesheet %}
-  .header {
-    padding: 20px;
-  }
-{% endstylesheet %}
+<script>
+  document.querySelector('.header-hamburger').addEventListener('click', (e) => {
+    document.querySelector('.header').classList.toggle('nav-active');
+  });
 
-{% javascript %}
-  console.log('hey from header');
-{% endjavascript %}
+  document.querySelector('.header-nav-overlay').addEventListener('click', (e) => {
+    document.querySelector('.header').classList.remove('nav-active');
+  });
+</script>
 
 {% schema %}
 {
   "name": "Header",
+  "tag": "header",
+  "class": "header",
   "settings": [
     {
-      "type": "checkbox",
-      "id": "show_search",
-      "label": "Show search form",
-      "default": true
+      "type": "range",
+      "id": "padding",
+      "label": "Header height",
+      "default": 24,
+      "min": 5,
+      "max": 100,
+      "step": 1
     },
     {
-      "type": "color",
-      "id": "bg",
-      "label": "Background color"
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "default": 100,
+      "min": 20,
+      "max": 300,
+      "step": 5
+    },
+    {
+      "type": "link_list",
+      "id": "navigation",
+      "label": "Navigation",
+      "default": "main-menu"
     }
   ]
 }
