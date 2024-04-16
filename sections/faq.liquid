@@ -1,0 +1,81 @@
+<div class="faq-page">
+  <div class="faq-page-width">
+    <div class="faq-page-header">
+      <h1>{{ page.title }}</h1>
+
+      <div class="faq-page-header-content">
+        {{ page.content }}
+      </div>
+    </div>
+
+    <div class="faq-page-body">
+      {% for block in section.blocks %}
+        {% if block.type == 'category' %}
+          <h2 class="faq-page-category">
+            {{ block.settings.title }}
+          </h2>
+        {% else %}
+          <div class="faq-page-question">
+            <header class="faq-page-question-header">
+              <h3>{{ block.settings.title }}</h3>
+
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+              </svg>
+            </header>
+
+            <div class="faq-page-question-body">
+              <div class="faq-page-question-body-inner">
+                {{ block.settings.body }}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.faq-page-question-header').forEach((header) => {
+    header.addEventListener('click', () => {
+      header.parentElement.classList.toggle('active');
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category title"
+        }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question title"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Question body"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
