@@ -47,6 +47,40 @@
   </div>
 </footer>
 
+<style>
+  .footer {
+    background-color: {{  settings.secondary_color }};
+  }
+
+  .footer-column p, .footer-column a {
+    color: {{ settings.medium_text_color }};
+  }
+
+  .footer-column a:hover {
+    color: {{ settings.hover_text_color }};
+  }
+
+  .footer-column.footer-column--news button {
+    color: {{ settings.text_color }};
+    background-color: {{ settings.button_color }};
+    border-color: {{ settings.button_color  }};
+  }
+
+  .footer-column.footer-column--news button:hover {
+    color: {{ settings.medium_text_color }};
+    background-color: {{ settings.button_hover_color }};
+    border-color: {{ settings.button_hover_color  }};
+  }
+
+  .footer-column.footer-column--news input {
+    border-color: {{ settings.primary_color }}
+  }
+
+  .footer-copyright {
+    color: {{  settings.medium_text_color }};
+  }
+</style>
+
 {% schema %}
 {
   "name": "Footer",
