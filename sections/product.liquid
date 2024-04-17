@@ -1,0 +1,35 @@
+<section class="product-page">
+  <div class="product-page-width">
+    <div class="product-image">
+      <img src="{{ product.featured_image | image_url }}" height="auto" width="400">
+    </div>
+
+    <div class="product-info">
+      <h1>{{ product.title }}</h1>
+
+      <p>{{ product.price | money }}</p>
+      <div>
+        {{ product.description }}
+      </div>
+
+      {% form 'product', product %}
+        <select name="id">
+          {% for variant in product.variants %}
+            <option value="{{ variant.id }}">
+              {{ variant.title }}
+            </option>
+          {% endfor %}
+        </select>
+
+        <button type="submit">{{ 'general.add_to_cart' | t }}</button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "product",
+  "settings": []
+}
+{% endschema %}
