@@ -32,6 +32,18 @@
       },
       {
         "type": "color",
+        "id": "primary_color",
+        "label": "Primary color",
+        "default": "#DDDDDD"
+      },
+      {
+        "type": "color",
+        "id": "secondary_color",
+        "label": "Secondary color",
+        "default": "#f6f6f6"
+      },
+      {
+        "type": "color",
         "id": "text_color",
         "label": "Text color",
         "default": "#111111"
@@ -41,6 +53,24 @@
         "id": "medium_text_color",
         "label": "Medium text color",
         "default": "#5e5e5e"
+      },
+      {
+        "type": "color",
+        "id": "hover_text_color",
+        "label": "Hover text color",
+        "default": "#919191"
+      },
+      {
+        "type": "color",
+        "id": "button_color",
+        "label": "Button color",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "button_hover_color",
+        "label": "Button hover color",
+        "default": "#C7C7C7"
       },
       {
         "type": "color",
