@@ -1,52 +1,76 @@
-{% paginate collection.products by section.settings['pagination-number'] %}
-  <h1>{{ collection.title }}</h1>
+<div class="collection-page">
+  <div class="collection-width">
+    {% paginate collection.products by section.settings['pagination-number'] %}
+      <h1>{{ collection.title }}</h1>
 
-  <select id="sort-by">
-    {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+      <select class="collection-sort-by" id="sort-by">
+        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 
-    {% for option in collection.sort_options %}
-      <option
-        value="{{ option.value }}"
-        {% if option.value == sort_by %}
-          selected="selected"
-        {% endif %}
-      >
-        {{ option.name }}
-      </option>
-    {% endfor %}
-  </select>
+        {% for option in collection.sort_options %}
+          <option
+            value="{{ option.value }}"
+            {% if option.value == sort_by %}
+              selected="selected"
+            {% endif %}
+          >
+            {{ option.name }}
+          </option>
+        {% endfor %}
+      </select>
 
-  <script>
-    Shopify.queryParams = {};
+      <script>
+        Shopify.queryParams = {};
 
-    // Preserve existing query parameters
-    if (location.search.length) {
-      var params = location.search.substr(1).split('&');
+        // Preserve existing query parameters
+        if (location.search.length) {
+          var params = location.search.substr(1).split('&');
 
-      for (var i = 0; i < params.length; i++) {
-        var keyValue = params[i].split('=');
+          for (var i = 0; i < params.length; i++) {
+            var keyValue = params[i].split('=');
 
-        if (keyValue.length) {
-          Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+            if (keyValue.length) {
+              Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+            }
+          }
         }
-      }
+
+        // Update sort_by query parameter on select change
+        document.querySelector('#sort-by').addEventListener('change', function (e) {
+          var value = e.target.value;
+
+          Shopify.queryParams.sort_by = value;
+          location.search = new URLSearchParams(Shopify.queryParams).toString();
+        });
+      </script>
+
+      <div class="product-list">
+        {% for product in collection.products %}
+          {% render 'product-item', product: product %}
+        {% endfor %}
+      </div>
+
+      <div class="pagination">
+        {{ paginate | default_pagination }}
+      </div>
+    {% endpaginate %}
+  </div>
+</div>
+
+<style>
+  .product-list {
+    grid-template-columns: repeat({{section.settings.mobile-items-per-row}}, 1fr);
+  }
+
+  h3.product-title, p.product-price {
+    color: {{ settings.text_color }};
+  }
+
+  @media (min-width: 960px) {
+    .product-list {
+      grid-template-columns: repeat({{section.settings.items-per-row}}, 1fr);
     }
-
-    // Update sort_by query parameter on select change
-    document.querySelector('#sort-by').addEventListener('change', function (e) {
-      var value = e.target.value;
-
-      Shopify.queryParams.sort_by = value;
-      location.search = new URLSearchParams(Shopify.queryParams).toString();
-    });
-  </script>
-
-  {% for product in collection.products %}
-    {% render 'product-item', product: product %}
-  {% endfor %}
-
-  {{ paginate | default_pagination }}
-{% endpaginate %}
+  }
+</style>
 
 {% schema %}
 {
@@ -57,6 +81,50 @@
       "id": "pagination-number",
       "label": "Pagination every",
       "default": 4
+    },
+    {
+      "type": "select",
+      "id": "items-per-row",
+      "label": "Items per row",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "mobile-items-per-row",
+      "label": "Mobile items per row",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
     }
   ]
 }
