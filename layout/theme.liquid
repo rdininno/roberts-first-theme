@@ -5,7 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Roberts First Theme</title>
-    <link rel="stylesheet" href="{{ 'style.scss.css' | asset_url}}">
+    {% style %}
+      :root {
+        --width: {{ settings.page_width}}px;
+        --bg: {{ settings.background_color }};
+        --text: {{ settings.text_color }};
+        --border: {{ settings.border_color }};
+        --mediumText: {{ settings.medium_text_color }};
+      }
+
+      :root {
+        --width: calc(100vw - 80px);
+        --bg: #fff;
+        --text: #333;
+        --border: #ccc;
+        --mediumText: #666;
+      }
+    {% endstyle %}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'header.css' | asset_url | stylesheet_tag }}
+    {{ 'footer.css' | asset_url | stylesheet_tag }}
+    {{ 'home.css' | asset_url | stylesheet_tag }}
+    {{ 'faq.css' | asset_url | stylesheet_tag }}
 
     {{ content_for_header }}
   </head>

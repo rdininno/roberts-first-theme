@@ -1,0 +1,17 @@
+.width {
+  max-width: var(--width);
+  width: calc(100% - 40px);
+  margin: 0 auto;
+}
+
+@media (min-width: 960px) {
+  .width {
+    width: calc(100% - 80px);
+  }
+}
+
+.hero {
+  background: #ddd;
+  color: white;
+  padding: 200px 0;
+}
