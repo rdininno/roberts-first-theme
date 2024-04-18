@@ -65,6 +65,14 @@
     color: {{ settings.text_color }};
   }
 
+  span.page a, span.next a, span.prev a {
+    color: {{ settings.text_color }};
+  }
+
+  span.page.current {
+    color: {{ settings.medium_text_color }}
+  }
+
   @media (min-width: 960px) {
     .product-list {
       grid-template-columns: repeat({{section.settings.items-per-row}}, 1fr);
