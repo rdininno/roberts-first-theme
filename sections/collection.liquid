@@ -1,4 +1,4 @@
-{% paginate collection.products by 4 %}
+{% paginate collection.products by section.settings['pagination-number'] %}
   <h1>{{ collection.title }}</h1>
 
   <select id="sort-by">
@@ -47,3 +47,17 @@
 
   {{ paginate | default_pagination }}
 {% endpaginate %}
+
+{% schema %}
+{
+  "name": "collection",
+  "settings": [
+    {
+      "type": "number",
+      "id": "pagination-number",
+      "label": "Pagination every",
+      "default": 4
+    }
+  ]
+}
+{% endschema %}
