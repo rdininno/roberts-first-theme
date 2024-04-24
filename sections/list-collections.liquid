@@ -3,6 +3,10 @@
     {% paginate collections by section.settings['pagination-number'] %}
       <h1 class="list-collections-heading">All Collections</h1>
 
+      {%- if settings.show_breadcrumb_nav -%}
+        {% render 'breadcrumbs' %}
+      {%- endif -%}
+
       <div class="collection-list">
         {% for collection in collections %}
           <div class="collection-list-item">

@@ -3,6 +3,10 @@
     {% paginate collection.products by section.settings['pagination-number'] %}
       <h1>{{ collection.title }}</h1>
 
+      {%- if settings.show_breadcrumb_nav -%}
+        {% render 'breadcrumbs' %}
+      {%- endif -%}
+
       <select class="collection-sort-by" id="sort-by">
         {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 

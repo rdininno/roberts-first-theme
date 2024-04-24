@@ -1,5 +1,9 @@
 <section class="product-page">
   <div class="product-page-width">
+    {%- if settings.show_breadcrumb_nav -%}
+      {% render 'breadcrumbs' %}
+    {%- endif -%}
+
     <div class="product-image">
       <img src="{{ product.featured_image | image_url }}" height="auto" width="400">
     </div>
