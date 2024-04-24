@@ -1,0 +1,108 @@
+<div class="list-collections-page">
+  <div class="list-collections-width">
+    {% paginate collections by section.settings['pagination-number'] %}
+      <h1 class="list-collections-heading">All Collections</h1>
+
+      <div class="collection-list">
+        {% for collection in collections %}
+          <div class="collection-list-item">
+            <a href="{{ collection.url }}">
+              <img class="collection-image" src="{{ collection.featured_image | image_url }}" height="auto" width="400">
+
+              <div class="collection-item-info">
+                <h2 class="collection-title">{{ collection.title }}</h2>
+                <p class="collection-products-count">Products: {{ collection.all_products_count }}</p>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="pagination">
+        {{ paginate | default_pagination }}
+      </div>
+    {% endpaginate %}
+  </div>
+</div>
+
+<style>
+  .collection-list {
+    grid-template-columns: repeat({{section.settings.mobile-items-per-row}}, 1fr);
+  }
+
+  @media (min-width: 960px) {
+    .collection-list {
+      grid-template-columns: repeat({{section.settings.items-per-row}}, 1fr);
+    }
+  }
+
+  h2.collection-title, p.collection-products-count{
+    color: {{ settings.text_color }};
+  }
+
+  span.page a, span.next a, span.prev a {
+    color: {{ settings.text_color }};
+  }
+
+  span.page.current {
+    color: {{ settings.medium_text_color }}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "list-collections",
+  "settings": [
+    {
+      "type": "number",
+      "id": "pagination-number",
+      "label": "Paginate after",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "items-per-row",
+      "label": "Items per row",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "mobile-items-per-row",
+      "label": "Mobile items per row",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    }
+  ]
+}
+{% endschema %}
