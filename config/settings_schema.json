@@ -79,5 +79,16 @@
         "default": "#DDDDDD"
       }
     ]
+  },
+  {
+    "name": "Breadcrumb Navigation",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_breadcrumb_nav",
+        "label": "Show breadcrumb navigation",
+        "default": true
+      }
+    ]
   }
 ]
