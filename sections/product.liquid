@@ -4,29 +4,41 @@
       {% render 'breadcrumbs' %}
     {%- endif -%}
 
-    <div class="product-image">
-      <img src="{{ product.featured_image | image_url }}" height="auto" width="400">
-    </div>
-
-    <div class="product-info">
-      <h1>{{ product.title }}</h1>
-
-      <p>{{ product.price | money }}</p>
-      <div>
-        {{ product.description }}
+    <div class="product">
+      <div class="product-image">
+        {% for media in product.media %}
+          {% render 'media', media: media %}
+        {% endfor %}
       </div>
 
-      {% form 'product', product %}
-        <select name="id">
-          {% for variant in product.variants %}
-            <option value="{{ variant.id }}">
-              {{ variant.title }}
-            </option>
-          {% endfor %}
-        </select>
+      <div class="product-info">
+        <h1 class="product-title">{{ product.title }}</h1>
 
-        <button type="submit">{{ 'general.add_to_cart' | t }}</button>
-      {% endform %}
+        <p class="product-price">{{ product.price | money }}</p>
+
+        {% form 'product', product %}
+          {%- unless product.has_only_default_variant -%}
+            <div class="product-form">
+              {% for option in product.options_with_values %}
+                <label>
+                  {{ option.name }}
+                </label>
+                <select name="id" class="product-options">
+                  {% for value in option.values %}
+                    <option value="{{ value | escape }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              {% endfor %}
+            </div>
+
+            <button class="product-add-to-cart" type="submit">{{ 'general.add_to_cart' | t }}</button>
+          {% endunless %}
+        {% endform %}
+
+        <div class="product-description">
+          {{ product.description }}
+        </div>
+      </div>
     </div>
   </div>
 </section>
