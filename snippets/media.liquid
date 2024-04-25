@@ -1,0 +1,28 @@
+{% case media.media_type %}
+  {% when 'image' %}
+    <div
+      class="product-single__media img"
+      data-media-id="{{ media.id }}"
+    >
+      {{ media | image_url: width: 2048, height: 2048 | image_tag }}
+    </div>
+  {% when 'external_video' %}
+    <div
+      class="product-single__media ex-vid"
+      data-media-id="{{ media.id }}"
+    >
+      {{ media | external_video_tag }}
+    </div>
+  {% when 'video' %}
+    <div class="product-single__media  vid" data-media-id="{{ media.id }}">
+      {{ media | video_tag: controls: true }}
+    </div>
+  {% when 'model' %}
+    <div class="product-single__media mod" data-media-id="{{ media.id }}">
+      {{ media | model_viewer_tag }}
+    </div>
+  {% else %}
+    <div class="product-single__media" data-media-id="{{ media.id }}">
+      {{ media | media_tag }}
+    </div>
+{% endcase %}
