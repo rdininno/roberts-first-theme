@@ -5,35 +5,35 @@
     {%- endif -%}
 
     <div class="product">
-      <div class="product-image">
+      <div class="product-page-image">
         {% for media in product.media %}
           {% render 'media', media: media %}
         {% endfor %}
       </div>
 
-      <div class="product-info">
-        <h1 class="product-title">{{ product.title }}</h1>
+      <div class="product-page-info">
+        <h1 class="product-page-title">{{ product.title }}</h1>
 
-        <p class="product-price">{{ product.price | money }}</p>
+        <p class="product-page-price">{{ product.price | money }}</p>
 
         {% form 'product', product %}
-          <label class="quantity__label" for="Quantity-{{ section.id }}">Quantity: </label>
-          <input
-            class="quantity__input"
-            type="number"
-            name="quantity"
-            id="Quantity-{{ section.id }}"
-            min="1"
-            value="1"
-          >
+          <div class="quanityt-container">
+            <label class="quantity__label" for="Quantity-{{ section.id }}">Quantity: </label>
+            <input
+              class="quantity__input"
+              type="number"
+              name="quantity"
+              id="Quantity-{{ section.id }}"
+              min="1"
+              value="1"
+            >
+          </div>
 
           {%- unless product.has_only_default_variant -%}
-            <div class="product-form">
+            <div class="product-page-options">
               {% for option in product.options_with_values %}
-                <label>
-                  {{ option.name }}
-                </label>
-                <select name="id" class="product-options">
+                <label class="option-label"> {{ option.name }}: </label>
+                <select name="id" class="product-page-options-selector">
                   {% for value in option.values %}
                     <option value="{{ value | escape }}">{{ value }}</option>
                   {% endfor %}
@@ -41,11 +41,12 @@
               {% endfor %}
             </div>
 
-            <button class="product-add-to-cart" type="submit">{{ 'general.add_to_cart' | t }}</button>
+            <button class="product-page-add-to-cart" type="submit">{{ 'general.add_to_cart' | t }}</button>
           {% endunless %}
         {% endform %}
 
-        <div class="product-description">
+        <div class="product-page-description">
+          <h3>Description</h3>
           {{ product.description }}
         </div>
       </div>
