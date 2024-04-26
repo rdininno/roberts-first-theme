@@ -17,6 +17,16 @@
         <p class="product-price">{{ product.price | money }}</p>
 
         {% form 'product', product %}
+          <label class="quantity__label" for="Quantity-{{ section.id }}">Quantity: </label>
+          <input
+            class="quantity__input"
+            type="number"
+            name="quantity"
+            id="Quantity-{{ section.id }}"
+            min="1"
+            value="1"
+          >
+
           {%- unless product.has_only_default_variant -%}
             <div class="product-form">
               {% for option in product.options_with_values %}
