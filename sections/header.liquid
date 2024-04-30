@@ -35,6 +35,13 @@
           {% endif %}
         </li>
       {% endfor %}
+
+      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+        {% render 'icon-cart' %}
+        <div class="cart-count-bubble">
+          <span>{{ cart.item_count }}</span>
+        </div>
+      </a>
     </ul>
   </div>
 </div>
@@ -48,6 +55,11 @@
 
   .header-logo {
     max-width: {{ section.settings.logo_width }}px
+  }
+
+  .cart-count-bubble {
+    background-color: {{ settings.primary_color }};
+    color: {{ settings.text_color }};
   }
 </style>
 

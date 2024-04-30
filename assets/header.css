@@ -180,3 +180,18 @@
 .header-sub-a:hover {
   color: var(--text);
 }
+
+svg.icon.icon-cart {
+  width: 40px;
+}
+
+svg.icon.icon-cart-empty {
+  width: 40px;
+}
+
+.added-to-cart {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 10px;
+  display: block
+}
