@@ -23,8 +23,7 @@
     {{ 'collection.css' | asset_url | stylesheet_tag }}
     {{ 'list-collections.css' | asset_url | stylesheet_tag }}
     {{ 'product.css' | asset_url | stylesheet_tag }}
-
-    <script src="{{ 'scripts.js' | asset_url }}" defer></script>
+    {{ 'cart-drawer.css' | asset_url | stylesheet_tag }}
 
     {{ content_for_header }}
   </head>
@@ -32,5 +31,7 @@
     {% section 'header' %}
     {{ content_for_layout }}
     {% section 'footer' %}
+    {% section 'cart-drawer' %}
+    <script src="{{ 'scripts.js' | asset_url }}" defer></script>
   </body>
 </html>
