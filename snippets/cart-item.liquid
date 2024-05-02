@@ -4,17 +4,16 @@
   </div>
 
   <div class="cart-item-product">
-    <h3>{{ item.product.title }}</h3>
-
+    <h3 class="cart-item-title">{{ item.product.title }}</h3>
     {% if item.variant.title != 'Default Title' %}
-      <p>{{ item.variant.title }}</p>
+      <p class="cart-item-variant-title">{{ item.variant.title }}</p>
     {% endif %}
   </div>
 
   <div class="cart-item-quantity">
     <div class="cart-quantity-selector">
       <button type="button" class="minus">-</button>
-      <input name="updates[]" type="text" value="{{ item.quantity }}">
+      <input name="updates[]" class="quantity" type="text" value="{{ item.quantity }}">
       <button type="button" class="plus">+</button>
     </div>
   </div>

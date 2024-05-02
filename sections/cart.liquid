@@ -1,11 +1,11 @@
 <div class="cart" data-money-format="{{ shop.money_format }}">
   <div class="width">
     {% form 'cart', cart %}
-      <h1>Cart</h1>
+      <h1 class="cart-header">Cart</h1>
 
       {% if cart.empty? %}
-        <p>Your Cart is Empty</p>
-        <a class="button" href="/">Keep shopping</a>
+        <p class="empty-cart-message">Your Cart is Empty</p>
+        <a class="button keep-shopping-button" href="/">Keep shopping</a>
       {% else %}
         {% for item in cart.items %}
           {% render 'cart-item', item: item %}
@@ -13,26 +13,46 @@
 
         <hr>
 
-        <div class="cart-notes">
-          <textarea name="note" placeholder="Add special instrustions">{{ cart.note }}</textarea>
-        </div>
+        <div class="cart-footer">
+          <div class="cart-notes">
+            <textarea name="note" placeholder="Add special instrustions">{{ cart.note }}</textarea>
+          </div>
 
-        <div class="cart-totals">
-          <p id="total-discount">Discounts: {{ cart.total_discount | money }}</p>
-          <p id="total-price">Total: {{ cart.total_price | money }}</p>
-        </div>
+          <div class="cart-footer-right">
+            <div class="cart-totals">
+              <p id="total-price">{{ cart.total_price | money }}</p>
+              <p id="total-discount">Discounts: {{ cart.total_discount | money }}</p>
+            </div>
 
-        <div class="cart-buttons">
-          <button type="submit" name="checkout">Checkout</button>
+            <div class="cart-buttons">
+              <button type="submit" name="checkout">Checkout</button>
+            </div>
+          </div>
         </div>
       {% endif %}
     {% endform %}
   </div>
 </div>
 
+<script src="{{ 'cart.js' | asset_url }}" defer></script>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
 
-<script src="{{ 'cart.js' | asset_url }}" defer></script>
+{{ 'cart.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .cart-quantity-selector button:hover {
+    background-color: {{ settings.secondary_color }};
+  }
+
+  .cart-buttons button {
+    background-color: {{ settings.primary_color }};
+    color: {{ settings.text_color }};
+  }
+  .cart-buttons button:hover {
+    background-color: {{ settings.secondary_color }};
+  }
+</style>
 
 {% schema %}
 {
