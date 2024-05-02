@@ -54,6 +54,7 @@
             <h3>Subtotal</h3>
             <span>{{ cart.total_price | money }}</span>
           </div>
+          <a href="/cart" id="viewCartButton" class="cart-drawer-button">View Cart</a>
           <button type="submit" name="checkout" class="cart-drawer-button">Checkout</button>
         </footer>
       {% endif %}

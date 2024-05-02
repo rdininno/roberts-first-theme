@@ -110,10 +110,12 @@ document.querySelectorAll('form[action="/cart/add"]').forEach((form) => {
 });
 
 document.querySelectorAll('a[href="/cart"]').forEach((a) => {
-  a.addEventListener("click", (e) => {
-    e.preventDefault();
-    openCartDrawer();
-  });
+  if (a.id !== "viewCartButton") {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      openCartDrawer();
+    });
+  }
 });
 
 const addToCartForms = document.querySelectorAll('form[action="/cart/add"]');

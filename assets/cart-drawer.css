@@ -214,3 +214,9 @@
   margin: auto;
   color: #212529;
 }
+
+a#viewCartButton {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
