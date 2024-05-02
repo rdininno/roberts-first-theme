@@ -80,3 +80,16 @@ p.product-price {
 .pagination {
   margin-bottom: 10px;
 }
+
+button.collection-add-to-cart {
+  margin: 20px 0;
+  background-color: purple;
+  color: white;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.collection-atc-container {
+  text-align: center;
+}

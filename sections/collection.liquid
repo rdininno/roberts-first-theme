@@ -50,13 +50,6 @@
       <div class="product-list">
         {% for product in collection.products %}
           {% render 'product-item', product: product %}
-
-          <form action="/cart/add" method="post" id="product-form- {{ product.id }}">
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-            <div>
-              <button class="product-page-add-to-cart" type="submit" name="add">Add to cart</button>
-            </div>
-          </form>
         {% endfor %}
       </div>
 

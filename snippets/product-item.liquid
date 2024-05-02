@@ -7,4 +7,11 @@
       <p class="product-price">{{ product.price | money }}</p>
     </div>
   </a>
+
+  <form action="/cart/add" method="post" id="product-form- {{ product.id }}">
+    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+    <div class="collection-atc-container">
+      <button class="collection-add-to-cart" type="submit" name="add">Add to cart</button>
+    </div>
+  </form>
 </div>
