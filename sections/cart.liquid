@@ -1,27 +1,38 @@
-{% form 'cart', cart %}
-  <h1>Cart</h1>
+<div class="cart" data-money-format="{{ shop.money_format }}">
+  <div class="width">
+    {% form 'cart', cart %}
+      <h1>Cart</h1>
 
-  {% if cart.empty? %}
-    <p>Your Cart is Empty</p>
-  {% else %}
-    {% for item in cart.items %}
-      <div>
-        <img src="{{ item.image | image_url}}" height="auto" width="200">
-        <h2>{{ item.title }}</h2>
-        <p>{{ item.final_line_price | money }}</p>
-        <input name="updates[]" value="{{ item.quantity }}">
-        <a href="{{ item.url_to_remove }}">Remove</a>
-      </div>
-    {% endfor %}
+      {% if cart.empty? %}
+        <p>Your Cart is Empty</p>
+        <a class="button" href="/">Keep shopping</a>
+      {% else %}
+        {% for item in cart.items %}
+          {% render 'cart-item', item: item %}
+        {% endfor %}
 
-    <hr>
+        <hr>
 
-    <p>Total: {{ cart.total_price | money }}</p>
+        <div class="cart-notes">
+          <textarea name="note" placeholder="Add special instrustions">{{ cart.note }}</textarea>
+        </div>
 
-    <button type="submit" name="update">Update</button>
-    <button type="submit" name="checkout">Checkout</button>
-  {% endif %}
-{% endform %}
+        <div class="cart-totals">
+          <p id="total-discount">Discounts: {{ cart.total_discount | money }}</p>
+          <p id="total-price">Total: {{ cart.total_price | money }}</p>
+        </div>
+
+        <div class="cart-buttons">
+          <button type="submit" name="checkout">Checkout</button>
+        </div>
+      {% endif %}
+    {% endform %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+
+<script src="{{ 'cart.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
