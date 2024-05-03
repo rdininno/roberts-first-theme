@@ -56,12 +56,23 @@
         </div>
       </div>
     </div>
+
+    {% if section.settings.show_recently_viewed %}
+      {% render 'recently-viewed' %}
+    {% endif %}
   </div>
 </section>
 
 {% schema %}
 {
   "name": "product",
-  "settings": []
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_recently_viewed",
+      "label": "Show Recently Viewed Products",
+      "default": true
+    }
+  ]
 }
 {% endschema %}

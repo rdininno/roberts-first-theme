@@ -1,0 +1,81 @@
+<script>
+  function setRecentlyViewedPdp() {
+    const pdpData = {
+      productTitle: '{{ product.title }}',
+      productImg: "{{ product.featured_image | img_url: '' }}",
+      productPrice: "{{ product.price | money | remove_first: '' }}",
+      productUrl: '{{ product.url }}',
+    };
+
+    const productArr = [];
+    let jsonResp, jsonRespArr, jsonRespArrStr;
+    const numberOfProduct = 4;
+    productArr.push(pdpData);
+    const currPdpTitle = pdpData.productTitle;
+    const pdpDataString = JSON.stringify(productArr);
+    const localData = localStorage.getItem('recently_viewed');
+
+    if (localData == null) {
+      localStorage.setItem('recently_viewed', pdpDataString);
+    } else if (localData != null) {
+      const oldPdpData = localStorage.getItem('recently_viewed');
+      const countPdpData = (oldPdpData.match(/productTitle/g) || []).length;
+      const reVisitPdp = oldPdpData.includes(currPdpTitle);
+      if (countPdpData < numberOfProduct && reVisitPdp == false) {
+        jsonResp = JSON.parse(oldPdpData);
+        jsonRespArr = jsonResp.concat(productArr);
+        jsonRespArrStr = JSON.stringify(jsonRespArr);
+        localStorage.setItem('recently_viewed', jsonRespArrStr);
+      } else if (countPdpData >= numberOfProduct && reVisitPdp == false) {
+        jsonResp = JSON.parse(oldPdpData);
+        jsonResp.shift();
+        jsonRespArr = jsonResp.concat(productArr);
+        jsonRespArr = JSON.stringify(jsonRespArr);
+        localStorage.setItem('recently_viewed', jsonRespArr);
+      }
+    }
+  }
+
+  setRecentlyViewedPdp();
+  const localViewed = localStorage.recently_viewed;
+</script>
+<div class="recently-title">
+  <h2 class="title inline-richtext h2 scroll-trigger animate--slide-in"><b>Recently Viewed</b></h2>
+</div>
+<div class="js-recentPdpBlock"></div>
+<script>
+  function getRecentPdp() {
+    const pdpData = JSON.parse(localStorage.getItem('recently_viewed'));
+    console.log(pdpData);
+    const recentViewHtml = [];
+    pdpData.forEach(function (item) {
+      recentViewHtml.push(`
+                  <section id="Recent">
+                  <div class="c-product">
+                      <div class="c-product__img">
+                      <a href="${item.productUrl}"><img src='${item.productImg}'/></a>
+                      </div>
+                      <h3 class="c-product__title">
+                          <a class="c-product__url" href="${item.productUrl}">
+                          ${item.productTitle}
+                          </a>
+                      </h3>
+                      <p class="c-productPrice">${item.productPrice}</p>
+                  </div>
+
+
+                  </section>
+              `);
+    });
+    const recentBlock = `${recentViewHtml.join('')}`;
+    console.log(recentBlock);
+    const contentBlock = document.querySelectorAll('.js-recentPdpBlock');
+    contentBlock.forEach((element) => {
+      element.innerHTML = recentBlock;
+    });
+  }
+
+  getRecentPdp();
+</script>
+
+{{ 'recently-viewed.css' | asset_url | stylesheet_tag }}
