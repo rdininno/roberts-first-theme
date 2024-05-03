@@ -62,6 +62,26 @@ function debounce(func, wait, immediate) {
   };
 }
 
+function updateCartItemCounts(count) {
+  document.querySelectorAll(".cart-count, .cart-count-bubble").forEach((el) => {
+    el.textContent = count;
+  });
+}
+
+function calculateTotalItemCount() {
+  let totalItemCount = 0;
+
+  const quantityInputs = document.querySelectorAll(
+    ".cart-item-quantity input.quantity"
+  );
+
+  quantityInputs.forEach((input) => {
+    totalItemCount += parseInt(input.value);
+  });
+
+  return totalItemCount;
+}
+
 document
   .querySelectorAll(".cart-quantity-selector button")
   .forEach((button) => {
@@ -75,11 +95,16 @@ document
         const newValue = value + 1;
         input.value = newValue;
         changeItemQuantity(key, newValue);
+        updateCartItemCounts(newValue);
       } else if (value > 1) {
         const newValue = value - 1;
         input.value = newValue;
         changeItemQuantity(key, newValue);
+        updateCartItemCounts(newValue);
       }
+
+      const totalItemCount = calculateTotalItemCount();
+      updateCartItemCounts(totalItemCount);
     });
   });
 
